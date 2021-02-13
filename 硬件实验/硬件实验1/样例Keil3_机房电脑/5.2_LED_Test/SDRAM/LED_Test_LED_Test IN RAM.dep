@@ -1,0 +1,43 @@
+Dependencies for Project 'LED_Test', Target 'LED_Test IN RAM': (DO NOT MODIFY !)
+F (.\S3C2410A.s)(0x48B983B4)(--cpu ARM920T -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Samsung--pd "__UVISION_VERSION SETA 525"--list .\sdram\s3c2410a.lst --xref -o .\sdram\s3c2410a.o --depend .\sdram\s3c2410a.d)
+F (.\Source\main.c)(0x48629D9A)(-c --cpu ARM920T -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\SDRAM\\" -I ..\Common\Inc -I .\Include-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Samsung-D__UVISION_VERSION="525"-o .\sdram\main.o --list_dir ".\\SDRAM\\" --list --omf_browse .\sdram\main.crf --depend .\sdram\main.d)
+I (..\Common\Inc\2410lib.h)(0x484EB44A)
+I (..\Common\Inc\def.h)(0x484EB48E)
+I (..\Common\Inc\memcfg.h)(0x46DD1A00)
+I (..\Common\Inc\option.h)(0x484EC64E)
+I (..\Common\Inc\register.h)(0x484EB508)
+I (..\Common\Inc\2410addr.h)(0x48B91E18)
+I (..\Common\Inc\sys_init.h)(0x48610F4E)
+F (.\Source\led_test.c)(0x5FCE1BA2)(-c --cpu ARM920T -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\SDRAM\\" -I ..\Common\Inc -I .\Include-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Samsung-D__UVISION_VERSION="525"-o .\sdram\led_test.o --list_dir ".\\SDRAM\\" --list --omf_browse .\sdram\led_test.crf --depend .\sdram\led_test.d)
+I (..\Common\Inc\2410lib.h)(0x484EB44A)
+I (..\Common\Inc\def.h)(0x484EB48E)
+I (..\Common\Inc\memcfg.h)(0x46DD1A00)
+I (..\Common\Inc\option.h)(0x484EC64E)
+I (..\Common\Inc\register.h)(0x484EB508)
+I (..\Common\Inc\2410addr.h)(0x48B91E18)
+F (..\common\src\2410lib.c)(0x5FCF263D)(-c --cpu ARM920T -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\SDRAM\\" -I ..\Common\Inc -I .\Include-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Samsung-D__UVISION_VERSION="525"-o .\sdram\2410lib.o --list_dir ".\\SDRAM\\" --list --omf_browse .\sdram\2410lib.crf --depend .\sdram\2410lib.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x599ECD2E)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
+I (..\Common\Inc\2410lib.h)(0x484EB44A)
+I (..\Common\Inc\def.h)(0x484EB48E)
+I (..\Common\Inc\memcfg.h)(0x46DD1A00)
+I (..\Common\Inc\option.h)(0x484EC64E)
+I (..\Common\Inc\register.h)(0x484EB508)
+I (..\Common\Inc\2410addr.h)(0x48B91E18)
+I (..\Common\Inc\2410slib.h)(0x484EB524)
+F (..\common\src\sys_init.c)(0x49A29092)(-c --cpu ARM920T -g -O0 --apcs=interwork --asm --interleave --asm_dir ".\\SDRAM\\" -I ..\Common\Inc -I .\Include-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Samsung-D__UVISION_VERSION="525"-o .\sdram\sys_init.o --list_dir ".\\SDRAM\\" --list --omf_browse .\sdram\sys_init.crf --depend .\sdram\sys_init.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x599ECD2E)
+I (..\Common\Inc\2410lib.h)(0x484EB44A)
+I (..\Common\Inc\def.h)(0x484EB48E)
+I (..\Common\Inc\memcfg.h)(0x46DD1A00)
+I (..\Common\Inc\option.h)(0x484EC64E)
+I (..\Common\Inc\register.h)(0x484EB508)
+I (..\Common\Inc\2410addr.h)(0x48B91E18)
+F (.\SDRAM.ini)(0x485463FE)()
+F (.\readme.txt)(0x48956E24)()

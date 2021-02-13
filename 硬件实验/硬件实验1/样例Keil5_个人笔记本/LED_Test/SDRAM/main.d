@@ -1,0 +1,9 @@
+.\sdram\main.o: Source\main.c
+.\sdram\main.o: ..\Common\Inc\2410lib.h
+.\sdram\main.o: ..\Common\Inc\def.h
+.\sdram\main.o: ..\Common\Inc\memcfg.h
+.\sdram\main.o: ..\Common\Inc\option.h
+.\sdram\main.o: ..\Common\Inc\register.h
+.\sdram\main.o: ..\Common\Inc\2410addr.h
+.\sdram\main.o: ..\Common\Inc\sys_init.h
+.\sdram\main.o: ..\Common\Inc\2410lib.h

@@ -1,0 +1,23 @@
+*** Creating Trace Output File '.\SDRAM\LED_Test.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\sdram\s3c2410a.o"'
+### List of Objects: adding '".\sdram\main.o"'
+### List of Objects: adding '".\sdram\led_test.o"'
+### List of Objects: adding '".\sdram\2410lib.o"'
+### List of Objects: adding '".\sdram\sys_init.o"'
+### ADS-LD Command completed:
+".\sdram\s3c2410a.o" ".\sdram\main.o" ".\sdram\led_test.o" ".\sdram\2410lib.o" ".\sdram\sys_init.o" --device DARMSS9 --strict --scatter ".\SDRAM\LED_Test.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SDRAM\LED_Test.map" -o ".\SDRAM\LED_Test.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\SDRAM\LED_Test.axf'
+### ADS-LD Command File: '.\SDRAM\LED_Test.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\SDRAM\LED_Test.lnp', Handle=0x000002AC
+### Writing '.lnp' file
+### ADS-LD Command file '.\SDRAM\LED_Test.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

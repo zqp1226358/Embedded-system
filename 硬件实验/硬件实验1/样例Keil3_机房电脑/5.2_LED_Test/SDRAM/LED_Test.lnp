@@ -1,0 +1,4 @@
+".\sdram\s3c2410a.o" ".\sdram\main.o" ".\sdram\led_test.o" ".\sdram\2410lib.o" ".\sdram\sys_init.o" --device DARMSS9 --strict --scatter ".\SDRAM\LED_Test.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SDRAM\LED_Test.map" -o ".\SDRAM\LED_Test.axf"

@@ -1,0 +1,242 @@
+/********************************************************************************************* 
+* File:  button_test.c 
+* Author: embest 
+* Descript: Button_Test  
+* History:  
+* EINT0 --- KEY1   EINT1 --- KEY2 
+*********************************************************************************************/ 
+ 
+/*------------------------------------------------------------------------------------------*/ 
+/*            include files            */ 
+/*------------------------------------------------------------------------------------------*/ 
+#include "2410lib.h" 
+#include "sys_init.h"
+/*------------------------------------------------------------------------------------------*/ 
+/*                const define         */ 
+/*------------------------------------------------------------------------------------------*/ 
+#define rCPLDIntControl  (*(volatile unsigned char*)0x22600000) 
+#define rCPLDIntStatus   (*(volatile unsigned char*)0x22200000) 
+#define LEDADDR (*(volatile unsigned char*)0x21180000) // LED Address
+
+/*
+	????
+*/
+#define Mi_lowx 1999
+#define Mi_lowy 166
+#define Fa_lowx 1862
+#define Fa_lowy 179
+#define dox 1263
+#define doy 264
+#define dorex 1197
+#define dorey 278
+#define rex 1130
+#define rey 295
+#define mix 997
+#define miy 334
+#define fax 931
+#define fay 358
+#define sox 798
+#define soy 418
+#define solax 731
+#define solay 455
+#define lax 731
+#define lay 455
+#define xix 665
+#define xiy 501
+#define solowx 1662
+#define solowy 200
+/*
+??74VHC573DT ???????? 0x21180000,????????????,?????????
+???????????????????,?????? 0x21180000,??? 4 ???? 4 ? LED
+?,??????? 0x21180000 ????,??? 4 ???/???,??????? 4 ? LED ?
+??/??*/
+ 
+/*------------------------------------------------------------------------------------------*/ 
+/*                           function declare                   */ 
+/*------------------------------------------------------------------------------------------*/ 
+void  __irq int_int(void); 
+void uart1_print(int light);
+int X[]={1999,1862,1795,1662,1596,1396,1330,1263,1197,1130,1064,997,931,864,798,731,731,665,665,598,598,532,532,465,465,399,332};
+int Y[]={166,179,185,200,209,239,250,264,278,295,313,334,358,385,418,455,455,501,501,557,557,626,626,716,716,835,1002};
+int LED[]={0,1,2,3,4,5,6,7};
+int midx[]={0,1263,1130,997,931,798,731,665};
+int midy[]={0,264,295,334,358,418,455,501};
+int starX[]={dox,dox,sox,sox,lax,lax,sox,fax,fax,mix,mix,rex,rex,dox,sox,sox,fax,fax,mix,mix,rex,sox,sox,fax,fax,mix,mix,rex,dox,dox,sox,sox,lax,lax,sox,fax,fax,mix,mix,rex,rex,dox};
+int starY[]={doy,doy,soy,soy,lay,lay,soy*2,fay,fay,miy,miy,rey,rey,doy*2,soy,soy,fay,fay,miy,miy,rey*2,soy,soy,fay,fay,miy,miy,rey*2,doy,doy,soy,soy,lay,lay,soy*2,fay,fay,miy,miy,rey,rey,doy*2};
+int tigerX[]={dorex,mix,dox,dorex,mix,dox,mix,fax,sox,mix,fax,sox,solax,sox,fax,mix,dox,solax,sox,fax,mix,dox,rex,solowx,dox,rex,solowx,dox};
+int tigerY[]={dorey,miy/2,doy/2,dorey,miy/2,doy/2,miy/2,fay/2,soy,miy/2,fay/2,soy,solay/2,soy/4,fay/4,miy/4,doy/4,solay/2,soy/4,fay/4,miy/4,doy/4,rey/2,solowy/2,doy,rey/2,solowy/2,doy};
+int flag=0;
+void song(int x,int y,int light){//0.5S,???????? light????????
+	int nOut;
+	nOut = 0xFF;
+	for(int i=0;i<y;i++)
+	{
+		LEDADDR = (nOut & 0x7F)&(~light);
+		for(int j=0;j<x;j++);
+		LEDADDR = (nOut & 0xFF)&(~light);
+		for(int j=0;j<x;j++);
+
+	}
+}
+
+void play_star(){
+	for(int i=0;i<42;i++){
+		int light=-1;
+		for(int j=1;j<=7;j++){//???????,?????
+			if(starX[i]==midx[j]){
+				light=j;
+				break;
+			}
+		}
+		uart1_print(light);
+		song(starX[i],starY[i],light);
+		for(int j=0;j<666666;j++);
+		if(flag==1){flag=0; break;}
+	}
+		LEDADDR = 0xFF;
+}
+void play_tiger(){
+	for(int i=0;tigerX[i]!=NULL&&tigerY[i]!=NULL;i++){
+		int light=-1;
+		for(int j=1;j<=7;j++){//???????,?????
+			if(tigerX[i]==midx[j]){
+				light=j;
+				break;
+			}
+		}
+		song(starX[i],starY[i],light);
+			  for(int j=0;j<666666;j++);
+	}
+	LEDADDR = 0xFF;
+}
+void uart1_print(int light)
+{
+char cInput[256];
+cInput[0]='0'+light;
+delay(1000);
+uart_printf("%c\n",cInput[0]);
+}
+
+
+/********************************************************************************************* 
+* name:  int_int 
+* func:  EXTINT interrupt service routine 
+* para:  none 
+* ret:  none 
+* modify: 
+* comment:
+  ???????????????,????????????rCPLDLED[7] 
+  ??????????,??????????
+  ????1Khz???,???????1ms,??rCPLDLED[7]??0.5 ms,??0.5ms,
+  ????,???????1Khz????
+*********************************************************************************************/ 
+void  __irq int_int(void) //?????????????????????????????
+{   
+	unsigned char Status; 
+ 
+ 	Status = rCPLDIntStatus;  //????key1,key2??
+	Status = ~(Status & 0x6); 
+ 
+    if(Status & 0x2)  //??????
+	{   
+		int i,nOut;
+		uart_printf(" Eint0 interrupt occurred.\n");  
+		//play_star();
+		flag=1;
+		LEDADDR = 0xFF;
+		
+		rCPLDIntControl |= (1<<1);   
+		rCPLDIntControl &= ~(1<<1);  
+	}  
+	else if(Status & 0x4)  //??????
+	{   
+			int i,nOut;
+		uart_printf(" EINT1 interrupt occurred.\n");   
+		play_tiger();
+		LEDADDR = 0xFF;
+		rCPLDIntControl |= (1<<2);   
+		rCPLDIntControl &= ~(1<<2);  
+	} 
+ 
+ 	rEINTPEND=(1<<9); 
+ 
+    ClearPending(BIT_EINT8_23); 
+} 
+ 
+/********************************************************************************************* 
+* name:  int_init 
+* func:  Interrupt initialize 
+* para:  none 
+* ret:  none 
+* modify: 
+* comment:  
+*********************************************************************************************/ 
+void int_init(void) 
+{     
+	rSRCPND = rSRCPND;                       // Clear all interrupt 
+
+    rINTPND = rINTPND;                       // Clear all interrupt       
+	// nIntMode='3';  
+	rGPGCON |= (0xf<<0);        
+	rGPGCON &= (0xa<<0);   
+ 
+ 	rCPLDIntControl = 0xFF;  
+	rCPLDIntControl = 0xF9; 
+ 
+ 	pISR_EINT8_23=(UINT32T)int_int;  
+ 
+ 	rEINTPEND = 0xffffff;  
+	rSRCPND = BIT_EINT8_23;          // Clear the previous 
+	rINTPND = BIT_EINT8_23;       
+	
+	rEXTINT1 &= ~((0x7<<4)|(0x7<<0));  
+	rEXTINT1 |= ((0x2<<4)|(0x2<<0)); 
+ 
+ 	rEINTMASK &= ~(3<<8);  
+	rINTMSK   &= ~(BIT_EINT8_23); 
+} 
+ 
+/********************************************************************************************* 
+* name:  int_test 
+* func:  Extern interrupt test 
+* para:  none 
+* ret:  none 
+* modify: 
+* comment:  
+*********************************************************************************************/ 
+void int_test(void) 
+{  
+	uart_printf("\n External Interrupt Test Example\n"); 
+	uart_printf("\n KEY1:star KEY2:tiger\n"); 
+  int_init();
+	char cInput[256];
+UINT8T ucInNo=0;
+UINT32T g_nKeyPress;
+char c;
+//rLEDADDR=0xF0;
+/*uart_printf("\n UART1 Communication Test Example\n");
+uart_printf(" Please input words, then press Enter:\n");
+uart_printf(" />");
+uart_printf(" ");*/
+g_nKeyPress = 1;
+while(g_nKeyPress==1) // only for board test to exit
+{
+c=uart_getch();
+//uart_sendbyte(c);
+//uart_printf("%c",c);
+if(c!='\n')
+cInput[ucInNo++]=c;
+else
+{
+cInput[ucInNo]='\0';
+break;
+}
+
+}
+delay(1000);
+uart_printf(" \nThe words that you input are: %c\n",cInput[0]);
+if(cInput[0]=='1')
+ 	play_star();
+else if(cInput[0]=='2')
+  play_tiger(); 
+} 
